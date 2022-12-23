@@ -25,7 +25,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'io.github.kamilszewc.twofactorclient'
-    mainClass = 'io.github.kamilszewc.twofactorclient.HelloApplication'
+    mainClass = 'io.github.kamilszewc.twofactorclient.MainApplication'
 }
 
 javafx {
@@ -37,6 +37,10 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
 test {
