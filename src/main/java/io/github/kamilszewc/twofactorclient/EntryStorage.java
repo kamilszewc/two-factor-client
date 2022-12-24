@@ -5,6 +5,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class EntryStorage {
 
     static public ObservableList<Entry> entriesList = FXCollections.observableArrayList();
 
-    EntryStorage() {
+    EntryStorage() throws IOException {
         readEntriesFromDisk();
 
         entriesList.addListener(new ListChangeListener<Entry>() {
@@ -35,26 +36,36 @@ public class EntryStorage {
         return entriesList;
     }
 
-    private void readEntriesFromDisk() {
-        entriesList.addAll(List.of(Entry.builder()
-                .serviceName("Service name")
-                .userName("User name")
-                .secret("Secret")
-                .issuer("Issuer")
-                .build()));
+    private void readEntriesFromDisk() throws IOException {
+        Path filePath = Path.of(System.getProperty("user.home"), fileName);
+        File file = new File(filePath.toUri());
+        FileInputStream fileInputStream = new FileInputStream(file);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+
+        try {
+            while (true) {
+                Entry entry = (Entry)objectInputStream.readObject();
+                entriesList.add(entry);
+            }
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (EOFException ex) {
+        }
     }
 
     private void writeEntriesToDisk() throws IOException {
-        File file = new File(Path.of(System.getProperty("user.home"), fileName).toUri());
-        FileWriter fileWriter = new FileWriter(file);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        Path filePath = Path.of(System.getProperty("user.home"), fileName);
+        Files.delete(filePath);
+        File file = new File(filePath.toUri());
+
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        ObjectOutputStream output = new ObjectOutputStream(fileOutputStream);
 
         for (var entry : entriesList) {
-            String line = entry.toString() + "\n";
-            bufferedWriter.write(line);
+            output.writeObject(entry);
         }
 
-        bufferedWriter.close();
-        fileWriter.close();
+        output.close();
+        fileOutputStream.close();
     }
 }

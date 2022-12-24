@@ -24,7 +24,15 @@ public class MainController implements Initializable {
     private Button addButton;
 
     @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button infoButton;
+
+    @FXML
     private ListView<Entry> entriesListView = new ListView<>();
+
+    public static Entry selectedEntry = null;
 
     final static Clipboard clipboard = Clipboard.getSystemClipboard();
 
@@ -36,6 +44,37 @@ public class MainController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("Add new entry");
             stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void onDeleteButtonClick() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("delete-entry-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 250, 100);
+            Stage stage = new Stage();
+            stage.setTitle("Delete entry");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void onInfoButtonClick() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("info-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 300, 500);
+            Stage stage = new Stage();
+            stage.setTitle("Info");
+            stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -44,7 +83,16 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        EntryStorage entryStorage = new EntryStorage();
+
+        EntryStorage entryStorage = null;
+        try {
+            entryStorage = new EntryStorage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        deleteButton.setDisable(true);
+
         ObservableList<Entry> entriesList = entryStorage.getEntries();
         entriesListView.setItems(entriesList);
         entriesListView.setCellFactory(new Callback<ListView<Entry>, ListCell<Entry>>() {
@@ -67,21 +115,23 @@ public class MainController implements Initializable {
         entriesListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (event.getClickCount() == 2) {
-                    Entry entry = entriesListView.getSelectionModel().getSelectedItem();
-                    System.out.println(entry);
 
+                selectedEntry = entriesListView.getSelectionModel().getSelectedItem();
+
+                if (event.getClickCount() == 2) {
                     final ClipboardContent content = new ClipboardContent();
-                    content.putString(String.valueOf(entry.getCode()));
+                    content.putString(String.valueOf(selectedEntry.getCode()));
                     clipboard.setContent(content);
                 }
+
+                deleteButton.setDisable(false);
             }
         });
 
         new Thread(() -> {
             try {
                 while (true) {
-                    Thread.sleep(10000);
+                    Thread.sleep(1000);
                     entriesListView.refresh();
                 }
             } catch (InterruptedException e) {

@@ -6,13 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
 @Getter
 @Setter
-public class Entry {
+public class Entry implements Serializable {
     private String serviceName;
     private String userName;
     private String secret;
@@ -21,10 +22,6 @@ public class Entry {
 
     public int getCode() {
         return 333333;
-    }
-
-    public String toString() {
-        return serviceName + " " + getCode() + " " + LocalDateTime.now();
     }
 
 }
