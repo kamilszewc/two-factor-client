@@ -26,4 +26,5 @@ public class Entry {
     public String toString() {
         return serviceName + " " + getCode() + " " + LocalDateTime.now();
     }
+
 }

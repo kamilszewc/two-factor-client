@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -35,7 +34,8 @@ public class NewEntryController implements Initializable {
                 .secret(secretTextField.getText())
                 .issuer(issuerTextField.getText())
                 .build();
-        MainController.entriesList.add(entry);
+        EntryStorage.entriesList.add(entry);
+
         Stage stage = (Stage)addButton.getScene().getWindow();
         stage.close();
     }
