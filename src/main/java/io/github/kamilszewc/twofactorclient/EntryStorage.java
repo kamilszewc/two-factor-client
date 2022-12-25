@@ -39,23 +39,27 @@ public class EntryStorage {
     private void readEntriesFromDisk() throws IOException {
         Path filePath = Path.of(System.getProperty("user.home"), fileName);
         File file = new File(filePath.toUri());
-        FileInputStream fileInputStream = new FileInputStream(file);
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        if (file.exists()) {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-        try {
-            while (true) {
-                Entry entry = (Entry)objectInputStream.readObject();
-                entriesList.add(entry);
+            try {
+                while (true) {
+                    Entry entry = (Entry) objectInputStream.readObject();
+                    entriesList.add(entry);
+                }
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (EOFException ex) {
             }
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (EOFException ex) {
         }
     }
 
     private void writeEntriesToDisk() throws IOException {
         Path filePath = Path.of(System.getProperty("user.home"), fileName);
-        Files.delete(filePath);
+        if (Files.exists(filePath)) {
+            Files.delete(filePath);
+        }
         File file = new File(filePath.toUri());
 
         FileOutputStream fileOutputStream = new FileOutputStream(file);

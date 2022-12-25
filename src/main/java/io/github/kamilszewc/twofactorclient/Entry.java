@@ -1,13 +1,14 @@
 package io.github.kamilszewc.twofactorclient;
 
+import io.github.kamilszewc.Totp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 @Builder
 @AllArgsConstructor
@@ -20,8 +21,8 @@ public class Entry implements Serializable {
     private String issuer;
     private String algorithm;
 
-    public int getCode() {
-        return 333333;
+    public String getCode() throws NoSuchAlgorithmException, InvalidKeyException {
+        return Totp.getCode(secret, Totp.HashFunction.HMACSHA1);
     }
 
 }

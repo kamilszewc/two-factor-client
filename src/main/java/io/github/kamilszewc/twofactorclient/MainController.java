@@ -17,6 +17,8 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -70,7 +72,7 @@ public class MainController implements Initializable {
     protected void onInfoButtonClick() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("info-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 300, 500);
+            Scene scene = new Scene(fxmlLoader.load(), 500, 500);
             Stage stage = new Stage();
             stage.setTitle("Info");
             stage.setScene(scene);
@@ -105,8 +107,14 @@ public class MainController implements Initializable {
                         if (empty || entry == null) {
                             setText(null);
                         } else {
-                            setText(entry.getServiceName() + " (" + entry.getIssuer() + ")\n"
-                                    + "code: " + entry.getCode());
+                            try {
+                                setText(entry.getServiceName() + " (" + entry.getIssuer() + ")\n"
+                                        + "code: " + entry.getCode());
+                            } catch (NoSuchAlgorithmException e) {
+                                throw new RuntimeException(e);
+                            } catch (InvalidKeyException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                 };
@@ -120,7 +128,13 @@ public class MainController implements Initializable {
 
                 if (event.getClickCount() == 2) {
                     final ClipboardContent content = new ClipboardContent();
-                    content.putString(String.valueOf(selectedEntry.getCode()));
+                    try {
+                        content.putString(selectedEntry.getCode());
+                    } catch (NoSuchAlgorithmException e) {
+                        throw new RuntimeException(e);
+                    } catch (InvalidKeyException e) {
+                        throw new RuntimeException(e);
+                    }
                     clipboard.setContent(content);
                 }
 

@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'io.github.kamilszewc'
-version '0.0'
+version '0.1'
 
 repositories {
     mavenCentral()
@@ -41,6 +41,8 @@ dependencies {
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    implementation 'io.github.kamilszewc:totp:0.2'
 }
 
 test {
@@ -57,4 +59,13 @@ jlink {
 
 jlinkZip {
     group = 'distribution'
+}
+
+def copyLicense = tasks.register('copyLicense', Copy) {
+    from 'LICENSE'
+    into 'src/main/resources'
+}
+
+compileJava.configure {
+    dependsOn copyLicense
 }
