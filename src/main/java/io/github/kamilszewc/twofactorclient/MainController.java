@@ -142,7 +142,7 @@ public class MainController implements Initializable {
             }
         });
 
-        new Thread(() -> {
+        Thread thread = new Thread(() -> {
             try {
                 while (true) {
                     Thread.sleep(1000);
@@ -151,7 +151,9 @@ public class MainController implements Initializable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }).start();
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 
 }
