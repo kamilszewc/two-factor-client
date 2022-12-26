@@ -16,8 +16,8 @@ ext {
     junitVersion = '5.9.1'
 }
 
-sourceCompatibility = '17'
-targetCompatibility = '17'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -43,7 +43,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     // Totp generator
-    implementation 'io.github.kamilszewc:totp:1.2'
+    implementation 'io.github.kamilszewc:totp:1.3'
 }
 
 test {
