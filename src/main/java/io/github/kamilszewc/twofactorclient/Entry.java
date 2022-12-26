@@ -25,4 +25,8 @@ public class Entry implements Serializable {
         return Totp.getCode(secret, Totp.HashFunction.HMACSHA1);
     }
 
+    public long getRemainingCodeValidity() {
+        return Totp.getCodeRemainingValidityTime();
+    }
+
 }

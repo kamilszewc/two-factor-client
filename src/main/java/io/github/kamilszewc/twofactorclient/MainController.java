@@ -109,7 +109,7 @@ public class MainController implements Initializable {
                         } else {
                             try {
                                 setText(entry.getServiceName() + " (" + entry.getIssuer() + ")\n"
-                                        + "code: " + entry.getCode());
+                                        + "code: " + entry.getCode() + " (" + entry.getRemainingCodeValidity() + " sec)");
                             } catch (NoSuchAlgorithmException e) {
                                 throw new RuntimeException(e);
                             } catch (InvalidKeyException e) {

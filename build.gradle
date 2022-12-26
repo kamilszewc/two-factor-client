@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'io.github.kamilszewc'
-version '0.1'
+version '0.2'
 
 repositories {
     mavenCentral()
@@ -42,7 +42,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
-    implementation 'io.github.kamilszewc:totp:0.2'
+    // Totp generator
+    implementation 'io.github.kamilszewc:totp:1.2'
 }
 
 test {
