@@ -1,8 +1,11 @@
 package io.github.kamilszewc.twofactorclient;
 
+import io.github.kamilszewc.Totp;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -24,6 +27,9 @@ public class NewEntryController implements Initializable {
     private TextField secretTextField;
 
     @FXML
+    private ComboBox algorithmComboBox;
+
+    @FXML
     private Button addButton;
 
     @FXML
@@ -42,6 +48,7 @@ public class NewEntryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        algorithmComboBox.setItems(FXCollections.observableArrayList(Totp.HashFunction.values()));
+        algorithmComboBox.getSelectionModel().selectFirst();
     }
 }

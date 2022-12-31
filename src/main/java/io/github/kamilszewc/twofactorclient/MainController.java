@@ -13,6 +13,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -37,6 +38,8 @@ public class MainController implements Initializable {
     public static Entry selectedEntry = null;
 
     final static Clipboard clipboard = Clipboard.getSystemClipboard();
+
+    final static EntryStorage entryStorage = new EntryStorage();;
 
     @FXML
     protected void onAddButtonClick() {
@@ -86,11 +89,17 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        EntryStorage entryStorage = null;
         try {
-            entryStorage = new EntryStorage();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("password-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 235, 65);
+            Stage stage = new Stage();
+            stage.setTitle("Type password");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setAlwaysOnTop(true);
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
 
         deleteButton.setDisable(true);

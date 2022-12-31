@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -9,8 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.kamilszewc.twofactorclient.NewEntryController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.kamilszewc.twofactorclient.NewEntryController">
    <children>
       <Label layoutX="108.0" layoutY="14.0" text="Add new entry" textAlignment="CENTER">
          <font>
@@ -41,6 +41,7 @@
             <TextField fx:id="issuerTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="secretTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="26.0" prefWidth="137.0" text="Add entry" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ComboBox fx:id="algorithmComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>
