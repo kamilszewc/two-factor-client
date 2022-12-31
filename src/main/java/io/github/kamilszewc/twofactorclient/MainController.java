@@ -1,5 +1,6 @@
 package io.github.kamilszewc.twofactorclient;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -97,6 +98,7 @@ public class MainController implements Initializable {
             stage.setScene(scene);
             stage.setResizable(false);
             stage.setAlwaysOnTop(true);
+            stage.setOnCloseRequest((event) -> Platform.exit());
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();

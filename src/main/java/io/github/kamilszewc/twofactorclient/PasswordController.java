@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 
@@ -18,6 +19,9 @@ public class PasswordController implements Initializable {
     private Button okButton;
 
     @FXML
+    private Label infoLabel;
+
+    @FXML
     protected void onOkButtonClick(ActionEvent actionEvent) {
         MainController.entryStorage.setPassword(passwordField.getText());
         try {
@@ -25,7 +29,8 @@ public class PasswordController implements Initializable {
             Stage stage = (Stage) okButton.getScene().getWindow();
             stage.close();
         } catch (Exception ex) {
-            System.out.println("Wrong password");
+            infoLabel.setText("wrong password");
+            infoLabel.setVisible(true);
         }
     }
 
