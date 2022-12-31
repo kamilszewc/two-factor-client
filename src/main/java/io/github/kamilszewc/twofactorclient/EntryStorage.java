@@ -26,7 +26,7 @@ public class EntryStorage {
 
     static public ObservableList<Entry> entriesList = FXCollections.observableArrayList();
 
-    EntryStorage() {
+    public EntryStorage() {
         if (password != null) {
             try {
                 readEntriesFromDisk();
@@ -63,6 +63,10 @@ public class EntryStorage {
         this.password = password;
     }
 
+    public String getPassword() {
+        return this.password;
+    }
+
     public void readEntriesFromDisk() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException {
         Path filePath = Path.of(System.getProperty("user.home"), fileName);
         File file = new File(filePath.toUri());
@@ -95,7 +99,7 @@ public class EntryStorage {
         }
     }
 
-    private void writeEntriesToDisk() throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, InvalidAlgorithmParameterException {
+    public void writeEntriesToDisk() throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, InvalidAlgorithmParameterException {
         Path filePath = Path.of(System.getProperty("user.home"), fileName);
         if (Files.exists(filePath)) {
             Files.delete(filePath);

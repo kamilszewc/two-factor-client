@@ -1,4 +1,4 @@
-package io.github.kamilszewc.twofactorclient;
+package io.github.kamilszewc.twofactorclient.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

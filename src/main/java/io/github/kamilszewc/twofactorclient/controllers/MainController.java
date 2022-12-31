@@ -1,5 +1,7 @@
-package io.github.kamilszewc.twofactorclient;
+package io.github.kamilszewc.twofactorclient.controllers;
 
+import io.github.kamilszewc.twofactorclient.Entry;
+import io.github.kamilszewc.twofactorclient.EntryStorage;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -14,7 +16,6 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class MainController implements Initializable {
     private Button deleteButton;
 
     @FXML
-    private Button infoButton;
+    private Button helpButton;
 
     @FXML
     private ListView<Entry> entriesListView = new ListView<>();
@@ -40,7 +41,7 @@ public class MainController implements Initializable {
 
     final static Clipboard clipboard = Clipboard.getSystemClipboard();
 
-    final static EntryStorage entryStorage = new EntryStorage();;
+    final static EntryStorage entryStorage = new EntryStorage();
 
     @FXML
     protected void onAddButtonClick() {
@@ -73,12 +74,12 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    protected void onInfoButtonClick() {
+    protected void onHelpButtonClick() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("info-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 500, 500);
+            FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("help-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 470, 600);
             Stage stage = new Stage();
-            stage.setTitle("Info");
+            stage.setTitle("Help");
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();

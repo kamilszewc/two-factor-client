@@ -1,6 +1,8 @@
-package io.github.kamilszewc.twofactorclient;
+package io.github.kamilszewc.twofactorclient.controllers;
 
 import io.github.kamilszewc.Totp;
+import io.github.kamilszewc.twofactorclient.Entry;
+import io.github.kamilszewc.twofactorclient.EntryStorage;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

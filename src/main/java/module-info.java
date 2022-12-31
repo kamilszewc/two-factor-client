@@ -6,4 +6,6 @@ module io.github.kamilszewc.twofactorclient {
 
     opens io.github.kamilszewc.twofactorclient to javafx.fxml;
     exports io.github.kamilszewc.twofactorclient;
+    exports io.github.kamilszewc.twofactorclient.controllers;
+    opens io.github.kamilszewc.twofactorclient.controllers to javafx.fxml;
 }
