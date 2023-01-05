@@ -92,15 +92,27 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("password-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 235, 65);
-            Stage stage = new Stage();
-            stage.setTitle("Type password");
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.setAlwaysOnTop(true);
-            stage.setOnCloseRequest((event) -> Platform.exit());
-            stage.show();
+            if (entryStorage.isFileCreated()) {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("password-view.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 235, 80);
+                Stage stage = new Stage();
+                stage.setTitle("Type password");
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.setAlwaysOnTop(true);
+                stage.setOnCloseRequest((event) -> Platform.exit());
+                stage.show();
+            } else {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("first-password-view.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 235, 130);
+                Stage stage = new Stage();
+                stage.setTitle("Set password");
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.setAlwaysOnTop(true);
+                stage.setOnCloseRequest((event) -> Platform.exit());
+                stage.show();
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
