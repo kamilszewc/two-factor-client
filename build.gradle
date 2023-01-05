@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'io.github.kamilszewc'
-version '1.2'
+version '1.3'
 
 repositories {
     mavenCentral()
@@ -50,6 +50,8 @@ test {
     useJUnitPlatform()
 }
 
+import org.apache.tools.ant.taskdefs.condition.Os;
+
 jlink {
     imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
@@ -59,10 +61,20 @@ jlink {
 
     jpackage {
         outputDir = "packages"
-        imageName = "two-factor-client"
+        imageName = "Two Factor Client"
         skipInstaller = false
         installerName = "two-factor-client"
-        installerType = 'pkg'
+        vendor = "Kamil Szewc"
+        if (Os.isFamily(Os.FAMILY_MAC)) {
+            installerType = 'pkg'
+            icon = 'src/main/resources/icon.icns'
+        } else if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            installerType = 'msi'
+            icon = 'src/main/resources/icon.png'
+        } else {
+            installerType = 'deb'
+            icon = 'src/main/resources/icon.png'
+        }
     }
 }
 
