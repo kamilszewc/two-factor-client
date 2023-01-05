@@ -70,10 +70,10 @@ jlink {
             icon = 'src/main/resources/icon.icns'
         } else if (Os.isFamily(Os.FAMILY_WINDOWS)) {
             installerType = 'msi'
-            icon = 'src/main/resources/icon.png'
+            icon = 'src/main/resources/logo.png'
         } else {
             installerType = 'deb'
-            icon = 'src/main/resources/icon.png'
+            icon = 'src/main/resources/logo.png'
         }
     }
 }
