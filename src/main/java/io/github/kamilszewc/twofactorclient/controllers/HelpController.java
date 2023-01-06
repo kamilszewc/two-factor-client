@@ -9,9 +9,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import lombok.Getter;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HelpController implements Initializable {
@@ -68,12 +69,7 @@ public class HelpController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        String version = getClass().getPackage().getImplementationVersion();
-        if (version == null) {
-            versionLabel.setText("unknown");
-        } else {
-            versionLabel.setText(version);
-        }
+        versionLabel.setText(getVersion().orElse("unknown"));
 
         var inputStream = getClass().getClassLoader().getResourceAsStream("LICENSE");
         var inputReader = new InputStreamReader(inputStream);
@@ -83,5 +79,16 @@ public class HelpController implements Initializable {
                 .reduce("", (a, b) -> a + b + "\n");
         licenseTextArea.setText(license);
         licenseTextArea.setWrapText(true);
+    }
+
+    private Optional<String> getVersion() {
+       InputStream inputStream = getClass().getClassLoader().getResourceAsStream("version.txt");
+       var inputStreamReader = new InputStreamReader(inputStream);
+       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+       try {
+           return Optional.of(bufferedReader.readLine());
+       } catch (Exception ex) {
+            return Optional.empty();
+       }
     }
 }

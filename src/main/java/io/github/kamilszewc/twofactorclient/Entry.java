@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -15,6 +16,8 @@ import java.security.NoSuchAlgorithmException;
 @Getter
 @Setter
 public class Entry implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private String serviceName;
     private String userName;
     private String secret;
@@ -28,5 +31,4 @@ public class Entry implements Serializable {
     public long getRemainingCodeValidity() {
         return Totp.getCodeRemainingValidityTime();
     }
-
 }

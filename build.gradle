@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'io.github.kamilszewc'
-version '1.4'
+version '1.5'
 
 repositories {
     mavenCentral()
@@ -50,6 +50,7 @@ test {
     useJUnitPlatform()
 }
 
+
 import org.apache.tools.ant.taskdefs.condition.Os;
 
 jlink {
@@ -61,17 +62,19 @@ jlink {
 
     jpackage {
         outputDir = "packages"
-        imageName = "Two Factor Client"
         skipInstaller = false
         installerName = "two-factor-client"
         vendor = "Kamil Szewc"
         if (Os.isFamily(Os.FAMILY_MAC)) {
+            imageName = "Two Factor Client"
             installerType = 'pkg'
             icon = 'src/main/resources/icon.icns'
         } else if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            imageName = "Two Factor Client"
             installerType = 'msi'
             icon = 'src/main/resources/logo.png'
         } else {
+            imageName = "two-factor-client"
             installerType = 'deb'
             icon = 'src/main/resources/logo.png'
         }
@@ -83,10 +86,24 @@ jlinkZip {
 }
 
 def copyLicense = tasks.register('copyLicense', Copy) {
-    from 'LICENSE'
-    into 'src/main/resources'
+    doLast {
+        from 'LICENSE'
+        into 'src/main/resources'
+    }
 }
 
 compileJava.configure {
     dependsOn copyLicense
+}
+
+def createProperties = tasks.register('createProperties') {
+    doLast {
+        new File('src/main/resources/version.txt').withWriter {
+            it.write(version)
+        }
+    }
+}
+
+compileJava.configure {
+    dependsOn createProperties
 }
