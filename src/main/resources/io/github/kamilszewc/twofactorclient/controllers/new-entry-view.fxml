@@ -17,10 +17,10 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <GridPane layoutX="37.0" layoutY="65.0" prefHeight="188.0" prefWidth="227.0">
+      <GridPane layoutX="30.0" layoutY="90.0" prefHeight="163.0" prefWidth="244.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="90.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="137.0" minWidth="10.0" prefWidth="137.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="89.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="138.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -44,5 +44,6 @@
             <ComboBox fx:id="algorithmComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
+      <Button fx:id="scanScreenButton" layoutX="77.0" layoutY="45.0" mnemonicParsing="false" onAction="#onScanScreenButtonClick" prefHeight="26.0" prefWidth="170.0" text="Scan screen for QR code" />
    </children>
 </Pane>

@@ -3,6 +3,7 @@ package io.github.kamilszewc.twofactorclient.controllers;
 import io.github.kamilszewc.Totp;
 import io.github.kamilszewc.twofactorclient.Entry;
 import io.github.kamilszewc.twofactorclient.EntryStorage;
+import io.github.kamilszewc.twofactorclient.QrCodeScanner;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,6 +36,9 @@ public class NewEntryController implements Initializable {
     private Button addButton;
 
     @FXML
+    private Button scanScreenButton;
+
+    @FXML
     protected void onAddButtonClick() {
         Entry entry = Entry.builder()
                 .serviceName(serviceNameTextField.getText())
@@ -46,6 +50,16 @@ public class NewEntryController implements Initializable {
 
         Stage stage = (Stage)addButton.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    protected void onScanScreenButtonClick() {
+        QrCodeScanner qrCodeScanner = new QrCodeScanner();
+        try {
+            qrCodeScanner.scanScreen();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
