@@ -56,7 +56,12 @@ public class NewEntryController implements Initializable {
     protected void onScanScreenButtonClick() {
         QrCodeScanner qrCodeScanner = new QrCodeScanner();
         try {
-            qrCodeScanner.scanScreen();
+            Entry entry = qrCodeScanner.scanScreen();
+            EntryStorage.entriesList.add(entry);
+
+            Stage stage = (Stage)addButton.getScene().getWindow();
+            stage.close();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -1,10 +1,7 @@
 package io.github.kamilszewc.twofactorclient;
 
 import io.github.kamilszewc.Totp;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,14 +12,19 @@ import java.security.NoSuchAlgorithmException;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Entry implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private String serviceName;
-    private String userName;
+
+    @Builder.Default
+    private String userName = "";
     private String secret;
     private String issuer;
-    private String algorithm;
+
+    @Builder.Default
+    private String algorithm = "HMACSHA1";
 
     public String getCode() throws NoSuchAlgorithmException, InvalidKeyException {
         return Totp.getCode(secret, Totp.HashFunction.HMACSHA1);

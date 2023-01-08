@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'io.github.kamilszewc'
-version '1.5'
+version '1.6'
 
 repositories {
     mavenCentral()
@@ -55,7 +55,10 @@ test {
 }
 
 
-import org.apache.tools.ant.taskdefs.condition.Os;
+import org.apache.tools.ant.taskdefs.condition.Os
+
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 
 jlink {
     imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
@@ -89,10 +92,9 @@ jlinkZip {
     group = 'distribution'
 }
 
-def copyLicense = tasks.register('copyLicense', Copy) {
+def copyLicense = tasks.register('copyLicense') {
     doLast {
-        from 'LICENSE'
-        into 'src/main/resources'
+        Files.copy(java.nio.file.Path.of('LICENSE'), java.nio.file.Path.of('src/main/resources/LICENSE'), StandardCopyOption.REPLACE_EXISTING)
     }
 }
 

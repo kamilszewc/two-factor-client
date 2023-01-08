@@ -2,51 +2,101 @@ package io.github.kamilszewc.twofactorclient;
 
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
-import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.common.GlobalHistogramBinarizer;
+import io.github.kamilszewc.Totp;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Optional;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class QrCodeScanner {
 
-    public void scanScreen() throws IOException, AWTException {
-        BinaryBitmap binaryBitmap = takeScreenshot();
-        Optional<String> result = processQrCode(binaryBitmap);
+    public Entry scanScreen() throws IOException, AWTException, URISyntaxException {
+        var bufferedImage = takeScreenshot();
+        Optional<String> result = processQrCode(bufferedImage);
         if (result.isPresent()) {
-            System.out.println(result.get());
+            return parseTotpUrl(result.get());
         } else {
             System.out.println("Did not found any QR code");
+            return null;
         }
     }
 
-    private BinaryBitmap takeScreenshot() throws AWTException, IOException {
+    private BufferedImage takeScreenshot() throws AWTException, IOException {
 
         File file = new File("/home/kamil/screenshot.jpg");
         Robot robot = new Robot();
         Rectangle rectangle = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+        System.out.println("ZZZ");
         BufferedImage bufferedImage = robot.createScreenCapture(rectangle);
+        System.out.println("HHH");
 
-        ImageIO.write(bufferedImage, "jpg", file);
-
-        LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
-        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-
-        return bitmap;
+        //return ImageReader.readImage(file.toURI());
+        return bufferedImage;
     }
 
-    private Optional<String> processQrCode(BinaryBitmap binaryBitmap) {
+    private Optional<String> processQrCode(BufferedImage bufferedImage) {
+
+        LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
+        BinaryBitmap bitmap = new BinaryBitmap(new GlobalHistogramBinarizer(source));
+
+        var hints = new EnumMap<>(DecodeHintType.class);
+        hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
+        hints.put(DecodeHintType.POSSIBLE_FORMATS, EnumSet.allOf(BarcodeFormat.class));
+
+        var hints_pure = new EnumMap<>(DecodeHintType.class);
+        hints.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
+
         MultiFormatReader mfr = new MultiFormatReader();
         try {
-            Result result = mfr.decode(binaryBitmap);
+            Result result = mfr.decode(bitmap, hints_pure);
+            bufferedImage.flush();
             return Optional.of(result.getText());
         } catch (NotFoundException ex) {
+            bufferedImage.flush();
             return Optional.empty();
         }
+    }
+
+    private Entry parseTotpUrl(String totpUrl) throws URISyntaxException {
+
+        URI uri = new URI(totpUrl);
+
+        String serviceName = uri.getPath().substring(1);
+        Map<String, String> parameters = Arrays.stream(uri.getQuery().split("&"))
+                .map(param -> {
+                    String[] splitted = param.split("=");
+                    String key = splitted[0];
+                    String value = splitted[1];
+                    var entry = Map.entry(key, value);
+                    return entry;
+                })
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        String algorithm = Totp.HashFunction.HMACSHA1.toString();
+        if (parameters.containsKey("algorithm")) {
+            if (parameters.get("algorithm").equals("SHA256")) {
+                algorithm = Totp.HashFunction.HMACSHA256.toString();
+            }
+            if (parameters.get("algorithm").equals("SHA512")) {
+                algorithm = Totp.HashFunction.HMACSHA512.toString();
+            }
+        }
+
+        Entry entry = Entry.builder()
+                .serviceName(serviceName)
+                .secret(parameters.get("secret"))
+                .issuer(parameters.get("issuer"))
+                .algorithm(algorithm)
+                .build();
+
+        System.out.println(entry);
+
+        return entry;
     }
 }
