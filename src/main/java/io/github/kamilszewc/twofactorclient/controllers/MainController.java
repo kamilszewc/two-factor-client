@@ -62,7 +62,7 @@ public class MainController implements Initializable {
     protected void onDeleteButtonClick() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("delete-entry-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 250, 100);
+            Scene scene = new Scene(fxmlLoader.load(), 230, 100);
             Stage stage = new Stage();
             stage.setTitle("Delete entry");
             stage.setScene(scene);
@@ -94,7 +94,7 @@ public class MainController implements Initializable {
         try {
             if (entryStorage.isFileCreated()) {
                 FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("password-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 235, 80);
+                Scene scene = new Scene(fxmlLoader.load(), 230, 80);
                 Stage stage = new Stage();
                 stage.setTitle("Type password");
                 stage.setScene(scene);
@@ -104,7 +104,7 @@ public class MainController implements Initializable {
                 stage.show();
             } else {
                 FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("first-password-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 235, 130);
+                Scene scene = new Scene(fxmlLoader.load(), 230, 130);
                 Stage stage = new Stage();
                 stage.setTitle("Set password");
                 stage.setScene(scene);

@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString

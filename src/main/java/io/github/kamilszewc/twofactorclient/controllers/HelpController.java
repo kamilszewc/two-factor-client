@@ -69,7 +69,9 @@ public class HelpController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        versionLabel.setText(getVersion().orElse("unknown"));
+        String version = getVersion().orElse("unknown");
+
+        versionLabel.setText("Two Factor Client - version " + version);
 
         var inputStream = getClass().getClassLoader().getResourceAsStream("LICENSE");
         var inputReader = new InputStreamReader(inputStream);

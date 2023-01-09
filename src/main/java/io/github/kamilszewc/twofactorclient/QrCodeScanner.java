@@ -16,26 +16,23 @@ import java.util.stream.Collectors;
 
 public class QrCodeScanner {
 
-    public Entry scanScreen() throws IOException, AWTException, URISyntaxException {
+    public Optional<Entry> scanScreen() throws IOException, AWTException, URISyntaxException {
         var bufferedImage = takeScreenshot();
         Optional<String> result = processQrCode(bufferedImage);
         if (result.isPresent()) {
-            return parseTotpUrl(result.get());
+            return Optional.of(parseTotpUrl(result.get()));
         } else {
             System.out.println("Did not found any QR code");
-            return null;
+            return Optional.empty();
         }
     }
 
     private BufferedImage takeScreenshot() throws AWTException, IOException {
 
-        File file = new File("/home/kamil/screenshot.jpg");
         Robot robot = new Robot();
         Rectangle rectangle = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-        System.out.println("ZZZ");
         BufferedImage bufferedImage = robot.createScreenCapture(rectangle);
-        System.out.println("HHH");
-
+        File file = new File("/home/kamil/screenshot.jpg");
         //return ImageReader.readImage(file.toURI());
         return bufferedImage;
     }
@@ -94,8 +91,6 @@ public class QrCodeScanner {
                 .issuer(parameters.get("issuer"))
                 .algorithm(algorithm)
                 .build();
-
-        System.out.println(entry);
 
         return entry;
     }

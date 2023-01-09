@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class NewEntryController implements Initializable {
@@ -56,11 +57,23 @@ public class NewEntryController implements Initializable {
     protected void onScanScreenButtonClick() {
         QrCodeScanner qrCodeScanner = new QrCodeScanner();
         try {
-            Entry entry = qrCodeScanner.scanScreen();
-            EntryStorage.entriesList.add(entry);
+            Optional<Entry> entry = qrCodeScanner.scanScreen();
+            //EntryStorage.entriesList.add(entry);
 
-            Stage stage = (Stage)addButton.getScene().getWindow();
-            stage.close();
+            if (entry.isPresent()) {
+                serviceNameTextField.setText(entry.get().getServiceName());
+                userNameTextField.setText(entry.get().getUserName());
+                issuerTextField.setText(entry.get().getIssuer());
+                secretTextField.setText(entry.get().getSecret());
+                String algorithm = entry.get().getAlgorithm();
+                if (algorithm.equals(Totp.HashFunction.HMACSHA1.toString())) {
+                    algorithmComboBox.getSelectionModel().select(Totp.HashFunction.HMACSHA1.ordinal());
+                } else if (algorithm.equals(Totp.HashFunction.HMACSHA256.toString())) {
+                    algorithmComboBox.getSelectionModel().select(Totp.HashFunction.HMACSHA256.ordinal());
+                } else if (algorithm.equals(Totp.HashFunction.HMACSHA512.toString())) {
+                    algorithmComboBox.getSelectionModel().select(Totp.HashFunction.HMACSHA512.ordinal());
+                }
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();

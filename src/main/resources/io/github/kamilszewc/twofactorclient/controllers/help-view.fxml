@@ -6,14 +6,13 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.kamilszewc.twofactorclient.controllers.HelpController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.kamilszewc.twofactorclient.controllers.HelpController">
    <children>
       <TextArea fx:id="licenseTextArea" editable="false" layoutX="13.0" layoutY="84.0" prefHeight="393.0" prefWidth="442.0" />
       <Label layoutX="19.0" layoutY="64.0" text="License:" />
-      <Label layoutX="19.0" layoutY="14.0" prefHeight="23.0" prefWidth="175.0" text="Two Factor Client - version" />
-      <Label fx:id="versionLabel" layoutX="199.0" layoutY="18.0" text="unknown" />
+      <Label fx:id="versionLabel" layoutX="19.0" layoutY="14.0" prefHeight="23.0" prefWidth="175.0" text="Two Factor Client - version" />
       <Label layoutX="19.0" layoutY="37.0" text="Author: Kamil Szewc" />
-      <Label layoutX="19.0" layoutY="490.0" text="Reset password" />
+      <Label layoutX="18.0" layoutY="490.0" text="Reset password:" />
       <PasswordField fx:id="currentPasswordField" layoutX="76.0" layoutY="512.0" prefHeight="26.0" prefWidth="121.0" />
       <Label layoutX="19.0" layoutY="516.0" text="Current:" />
       <Label layoutX="209.0" layoutY="516.0" text="New:" />
