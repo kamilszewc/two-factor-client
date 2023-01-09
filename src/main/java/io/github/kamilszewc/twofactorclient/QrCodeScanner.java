@@ -22,7 +22,6 @@ public class QrCodeScanner {
         if (result.isPresent()) {
             return Optional.of(parseTotpUrl(result.get()));
         } else {
-            System.out.println("Did not found any QR code");
             return Optional.empty();
         }
     }

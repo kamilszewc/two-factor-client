@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -40,6 +41,9 @@ public class NewEntryController implements Initializable {
     private Button scanScreenButton;
 
     @FXML
+    private Label errorMessageLabel;
+
+    @FXML
     protected void onAddButtonClick() {
         Entry entry = Entry.builder()
                 .serviceName(serviceNameTextField.getText())
@@ -47,6 +51,23 @@ public class NewEntryController implements Initializable {
                 .secret(secretTextField.getText())
                 .issuer(issuerTextField.getText())
                 .build();
+
+        // Validate entry
+        if (entry.getSecret().isBlank()) {
+            errorMessageLabel.setText("Secret can not be empty");
+            return;
+        }
+
+        if (entry.getServiceName().isBlank()) {
+            errorMessageLabel.setText("Service name can not be empty");
+            return;
+        }
+
+        if (entry.getIssuer().isBlank()) {
+            errorMessageLabel.setText("Issuer field can not be empty");
+            return;
+        }
+
         EntryStorage.entriesList.add(entry);
 
         Stage stage = (Stage)addButton.getScene().getWindow();
@@ -58,7 +79,6 @@ public class NewEntryController implements Initializable {
         QrCodeScanner qrCodeScanner = new QrCodeScanner();
         try {
             Optional<Entry> entry = qrCodeScanner.scanScreen();
-            //EntryStorage.entriesList.add(entry);
 
             if (entry.isPresent()) {
                 serviceNameTextField.setText(entry.get().getServiceName());
@@ -73,6 +93,9 @@ public class NewEntryController implements Initializable {
                 } else if (algorithm.equals(Totp.HashFunction.HMACSHA512.toString())) {
                     algorithmComboBox.getSelectionModel().select(Totp.HashFunction.HMACSHA512.ordinal());
                 }
+            } else {
+
+                errorMessageLabel.setText("Could not find any QR code");
             }
 
         } catch (Exception ex) {
