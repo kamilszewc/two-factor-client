@@ -99,7 +99,10 @@ jlinkZip {
 
 def copyLicense = tasks.register('copyLicense') {
     doLast {
-        Files.copy(java.nio.file.Path.of('LICENSE'), java.nio.file.Path.of('src/main/resources/LICENSE'), StandardCopyOption.REPLACE_EXISTING)
+        Files.list(java.nio.file.Path.of("${projectDir}")).forEach {
+            println it
+        }
+        Files.copy(java.nio.file.Path.of("${projectDir}", 'LICENSE'), java.nio.file.Path.of("${projectDir}", 'src/main/resources/LICENSE'), StandardCopyOption.REPLACE_EXISTING)
     }
 }
 
