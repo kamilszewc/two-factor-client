@@ -84,7 +84,10 @@ jlink {
         } else if (Os.isFamily(Os.FAMILY_WINDOWS)) {
             imageName = "Two Factor Client"
             installerType = 'msi'
-            icon = 'src/main/resources/logo.png'
+            icon = 'src/main/resources/logo.ico'
+            installerOptions += [
+                    '--win-menu'
+            ]
         } else {
             imageName = "two-factor-client"
             installerType = 'deb'
