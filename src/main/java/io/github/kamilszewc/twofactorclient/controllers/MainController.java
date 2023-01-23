@@ -47,7 +47,7 @@ public class MainController implements Initializable {
     protected void onAddButtonClick() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("new-entry-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 300, 300);
+            Scene scene = new Scene(fxmlLoader.load(), 300, 270);
             Stage stage = new Stage();
             stage.setTitle("Add new entry");
             stage.setScene(scene);
@@ -62,7 +62,7 @@ public class MainController implements Initializable {
     protected void onDeleteButtonClick() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("delete-entry-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 230, 100);
+            Scene scene = new Scene(fxmlLoader.load(), 260, 100);
             Stage stage = new Stage();
             stage.setTitle("Delete entry");
             stage.setScene(scene);
