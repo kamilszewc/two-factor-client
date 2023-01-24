@@ -94,7 +94,7 @@ public class MainController implements Initializable {
         try {
             if (entryStorage.isFileCreated()) {
                 FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("password-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 230, 80);
+                Scene scene = new Scene(fxmlLoader.load(), 230, 100);
                 Stage stage = new Stage();
                 stage.setTitle("Type password");
                 stage.setScene(scene);
@@ -104,9 +104,10 @@ public class MainController implements Initializable {
                 stage.show();
             } else {
                 FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("first-password-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 230, 130);
+                //Scene scene = new Scene(fxmlLoader.load());
+                Scene scene = new Scene(fxmlLoader.load(), 250, 210);
                 Stage stage = new Stage();
-                stage.setTitle("Set password");
+                stage.setTitle("Initial config");
                 stage.setScene(scene);
                 stage.setResizable(false);
                 stage.setAlwaysOnTop(true);

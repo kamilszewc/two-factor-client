@@ -8,21 +8,29 @@ import java.io.Serializable;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @ToString
 public class Entry implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private String serviceName;
 
+    public String getServiceName() {
+        return this.serviceName;
+    }
+
     @Builder.Default
     private String userName = "";
     private String secret;
     private String issuer;
+
+    public String getIssuer() {
+        return this.issuer;
+    }
 
     @Builder.Default
     private String algorithm = "HMACSHA1";

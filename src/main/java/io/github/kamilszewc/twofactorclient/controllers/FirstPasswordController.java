@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TitledPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -22,13 +23,37 @@ public class FirstPasswordController implements Initializable {
     private Button okButton;
 
     @FXML
+    private Button noPasswordOkButton;
+
+    @FXML
+    private TitledPane withPasswordTitledPane;
+
+    @FXML
+    private TitledPane noPasswordTitledPane;
+
+    @FXML
     private Label infoLabel;
+
+    @FXML
+    protected void onNoPasswordOkButtonClick(ActionEvent actionEvent) {
+        System.out.println(withPasswordTitledPane.isExpanded());
+        System.out.println(noPasswordTitledPane.isExpanded());
+
+        MainController.entryStorage.setPassword("");
+        try {
+            MainController.entryStorage.readEntriesFromDisk();
+            Stage stage = (Stage) noPasswordOkButton.getScene().getWindow();
+            stage.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @FXML
     protected void onOkButtonClick(ActionEvent actionEvent) {
 
         if (passwordField.getText().isBlank()) {
-            infoLabel.setText("New password is empty");
+            infoLabel.setText("Password is empty");
             infoLabel.setVisible(true);
             return;
         }

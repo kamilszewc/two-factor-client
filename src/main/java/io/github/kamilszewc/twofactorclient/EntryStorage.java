@@ -84,8 +84,14 @@ public class EntryStorage {
             cipher.init(Cipher.DECRYPT_MODE, secret, iv);
 
             FileInputStream fileInputStream = new FileInputStream(file);
-            CipherInputStream cipherInputStream = new CipherInputStream(fileInputStream, cipher);
-            ObjectInputStream objectInputStream = new ObjectInputStream(cipherInputStream);
+
+            ObjectInputStream objectInputStream;
+            if (!password.isBlank()) {
+                CipherInputStream cipherInputStream = new CipherInputStream(fileInputStream, cipher);
+                objectInputStream = new ObjectInputStream(cipherInputStream);
+            } else {
+                objectInputStream = new ObjectInputStream(fileInputStream);
+            }
 
             try {
                 while (true) {
@@ -119,8 +125,13 @@ public class EntryStorage {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, secret, iv);
 
-        CipherOutputStream cipherOutputStream = new CipherOutputStream(fileOutputStream, cipher);
-        ObjectOutputStream output = new ObjectOutputStream(cipherOutputStream);
+        ObjectOutputStream output;
+        if (!password.isBlank()) {
+            CipherOutputStream cipherOutputStream = new CipherOutputStream(fileOutputStream, cipher);
+            output = new ObjectOutputStream(cipherOutputStream);
+        } else {
+            output = new ObjectOutputStream(fileOutputStream);
+        }
 
         for (var entry : entriesList) {
             output.writeObject(entry);
