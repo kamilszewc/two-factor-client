@@ -91,17 +91,23 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
         try {
             if (entryStorage.isFileCreated()) {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("password-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 230, 100);
-                Stage stage = new Stage();
-                stage.setTitle("Type password");
-                stage.setScene(scene);
-                stage.setResizable(false);
-                stage.setAlwaysOnTop(true);
-                stage.setOnCloseRequest((event) -> Platform.exit());
-                stage.show();
+                try {
+                    entryStorage.readEntriesFromDisk();
+
+                } catch (Exception ex) {
+                    FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("password-view.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 230, 100);
+                    Stage stage = new Stage();
+                    stage.setTitle("Type password");
+                    stage.setScene(scene);
+                    stage.setResizable(false);
+                    stage.setAlwaysOnTop(true);
+                    stage.setOnCloseRequest((event) -> Platform.exit());
+                    stage.show();
+                }
             } else {
                 FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("first-password-view.fxml"));
                 //Scene scene = new Scene(fxmlLoader.load());
@@ -114,15 +120,15 @@ public class MainController implements Initializable {
                 stage.setOnCloseRequest((event) -> Platform.exit());
                 stage.show();
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         deleteButton.setDisable(true);
 
         ObservableList<Entry> entriesList = entryStorage.getEntries();
         entriesListView.setItems(entriesList);
-        entriesListView.setCellFactory(new Callback<ListView<Entry>, ListCell<Entry>>() {
+        entriesListView.setCellFactory(new Callback<>() {
             @Override
             public ListCell<Entry> call(ListView<Entry> param) {
                 return new ListCell<>() {
@@ -145,26 +151,23 @@ public class MainController implements Initializable {
                 };
             }
         });
-        entriesListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
+        entriesListView.setOnMouseClicked(event -> {
 
-                selectedEntry = entriesListView.getSelectionModel().getSelectedItem();
+            selectedEntry = entriesListView.getSelectionModel().getSelectedItem();
 
-                if (event.getClickCount() == 2) {
-                    final ClipboardContent content = new ClipboardContent();
-                    try {
-                        content.putString(selectedEntry.getCode());
-                    } catch (NoSuchAlgorithmException e) {
-                        throw new RuntimeException(e);
-                    } catch (InvalidKeyException e) {
-                        throw new RuntimeException(e);
-                    }
-                    clipboard.setContent(content);
+            if (event.getClickCount() == 2) {
+                final ClipboardContent content = new ClipboardContent();
+                try {
+                    content.putString(selectedEntry.getCode());
+                } catch (NoSuchAlgorithmException e) {
+                    throw new RuntimeException(e);
+                } catch (InvalidKeyException e) {
+                    throw new RuntimeException(e);
                 }
-
-                deleteButton.setDisable(false);
+                clipboard.setContent(content);
             }
+
+            deleteButton.setDisable(false);
         });
 
         Thread thread = new Thread(() -> {
