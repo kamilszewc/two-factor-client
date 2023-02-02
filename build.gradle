@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'org.beryx.jlink' version '2.25.0'
+    id 'org.sonatype.gradle.plugins.scan' version '2.5.5'
 }
 
 group 'io.github.kamilszewc'
@@ -123,4 +124,10 @@ def createProperties = tasks.register('createProperties') {
 
 compileJava.configure {
     dependsOn createProperties
+}
+
+ossIndexAudit {
+    allConfigurations = false
+    useCache = false
+    outputFormat = 'DEFAULT'
 }
