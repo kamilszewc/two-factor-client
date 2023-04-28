@@ -1,6 +1,6 @@
 package io.github.kamilszewc.twofactorclient;
 
-import io.github.kamilszewc.Totp;
+import com.computinglaboratory.totp.Totp;
 import lombok.*;
 
 import java.io.Serial;

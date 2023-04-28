@@ -4,21 +4,32 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'org.beryx.jlink' version '2.25.0'
     id 'org.sonatype.gradle.plugins.scan' version '2.5.5'
+    id 'org.graalvm.buildtools.native' version '0.9.19'
 }
 
 group 'io.github.kamilszewc'
-version '1.11'
+version '1.12'
+
+graalvmNative {
+    binaries {
+        main {
+            imageName = 'two-factor-client'
+            useFatJar = true
+           // buildArgs.add('-H:Class')
+        }
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
 ext {
-    junitVersion = '5.9.1'
+    junitVersion = '5.9.2'
 }
 
-sourceCompatibility = '18'
-targetCompatibility = '18'
+sourceCompatibility = '17'
+targetCompatibility = '17'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -28,6 +39,12 @@ application {
     mainModule = 'io.github.kamilszewc.twofactorclient'
     mainClass = 'io.github.kamilszewc.twofactorclient.Application'
 }
+
+//jar {
+//    manifest {
+//       attributes('Main-Class': 'io.github.kamilszewc.twofactorclient.Application')
+//    }
+//}
 
 javafx {
     version = '19'
@@ -40,11 +57,11 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
     // Lombok
-    compileOnly 'org.projectlombok:lombok:1.18.22'
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
 
     // Totp generator
-    implementation 'io.github.kamilszewc:totp:1.5'
+    implementation 'io.github.kamilszewc:totp:5.0'
 
     // Google zxing
     implementation 'com.google.zxing:core:3.5.1'

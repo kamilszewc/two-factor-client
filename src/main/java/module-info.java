@@ -2,7 +2,7 @@ module io.github.kamilszewc.twofactorclient {
     requires javafx.controls;
     requires javafx.fxml;
     requires static lombok;
-    requires io.github.kamilszewc.totp;
+    requires com.computinglaboratory.totp;
     requires java.datatransfer;
     requires java.desktop;
     requires com.google.zxing;

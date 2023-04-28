@@ -1,6 +1,6 @@
 package io.github.kamilszewc.twofactorclient.controllers;
 
-import io.github.kamilszewc.Totp;
+import com.computinglaboratory.totp.Totp;
 import io.github.kamilszewc.twofactorclient.Entry;
 import io.github.kamilszewc.twofactorclient.EntryStorage;
 import io.github.kamilszewc.twofactorclient.QrCodeScanner;

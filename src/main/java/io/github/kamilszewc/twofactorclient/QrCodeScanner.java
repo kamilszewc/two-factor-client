@@ -3,7 +3,7 @@ package io.github.kamilszewc.twofactorclient;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.GlobalHistogramBinarizer;
-import io.github.kamilszewc.Totp;
+import com.computinglaboratory.totp.Totp;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
