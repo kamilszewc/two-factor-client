@@ -15,7 +15,6 @@ graalvmNative {
         main {
             imageName = 'two-factor-client'
             useFatJar = true
-           // buildArgs.add('-H:Class')
         }
     }
 }
@@ -39,12 +38,6 @@ application {
     mainModule = 'io.github.kamilszewc.twofactorclient'
     mainClass = 'io.github.kamilszewc.twofactorclient.Application'
 }
-
-//jar {
-//    manifest {
-//       attributes('Main-Class': 'io.github.kamilszewc.twofactorclient.Application')
-//    }
-//}
 
 javafx {
     version = '19'
