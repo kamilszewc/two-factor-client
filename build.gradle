@@ -8,7 +8,7 @@ plugins {
 }
 
 group 'io.github.kamilszewc'
-version '1.15'
+version '1.16'
 
 graalvmNative {
     binaries {

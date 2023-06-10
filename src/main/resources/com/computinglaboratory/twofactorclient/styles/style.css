@@ -13,3 +13,7 @@
 .root {
     -fx-font-family: 'Roboto Medium';
 }
+
+.titled-pane > .title {
+    -fx-padding: 10;
+}
