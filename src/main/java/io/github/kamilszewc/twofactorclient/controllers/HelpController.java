@@ -4,9 +4,8 @@ import io.github.kamilszewc.twofactorclient.EntryStorage;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import lombok.Getter;
 
 import java.io.*;
@@ -16,6 +15,15 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HelpController implements Initializable {
+
+    @FXML
+    public TitledPane licensePane;
+
+    @FXML
+    public TitledPane passwordChangePane;
+
+    @FXML
+    public Accordion accordion;
 
     @FXML
     private Label versionLabel;
@@ -81,6 +89,13 @@ public class HelpController implements Initializable {
                 .reduce("", (a, b) -> a + b + "\n");
         licenseTextArea.setText(license);
         licenseTextArea.setWrapText(true);
+
+        this.accordion.expandedPaneProperty().addListener(((observable, oldValue, newValue) -> {
+            Platform.runLater(() -> {
+                Stage stage = (Stage) this.accordion.getScene().getWindow();
+                stage.sizeToScene();
+            });
+        }));
     }
 
     private Optional<String> getVersion() {

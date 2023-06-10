@@ -77,7 +77,7 @@ public class MainController implements Initializable {
     protected void onHelpButtonClick() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("help-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 470, 600);
+            Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
             stage.setTitle("Help");
             stage.setScene(scene);
@@ -111,8 +111,9 @@ public class MainController implements Initializable {
             } else {
                 FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("first-password-view.fxml"));
                 //Scene scene = new Scene(fxmlLoader.load());
-                Scene scene = new Scene(fxmlLoader.load(), 250, 210);
+                Scene scene = new Scene(fxmlLoader.load());
                 Stage stage = new Stage();
+                stage.sizeToScene();
                 stage.setTitle("Initial config");
                 stage.setScene(scene);
                 stage.setResizable(false);

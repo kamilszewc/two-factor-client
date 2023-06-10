@@ -1,18 +1,19 @@
 package io.github.kamilszewc.twofactorclient.controllers;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class FirstPasswordController implements Initializable {
+    @FXML
+    private Accordion accordion;
+
     @FXML
     private PasswordField passwordField;
 
@@ -76,7 +77,13 @@ public class FirstPasswordController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        this.accordion.setExpandedPane(withPasswordTitledPane);
+        this.accordion.expandedPaneProperty().addListener(((observable, oldValue, newValue) -> {
+            Platform.runLater(() -> {
+                Stage stage = (Stage) this.accordion.getScene().getWindow();
+                stage.sizeToScene();
+            });
+        }));
     }
 
 }
