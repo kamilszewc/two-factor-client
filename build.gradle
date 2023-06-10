@@ -1,13 +1,13 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
-    id 'org.beryx.jlink' version '2.25.0'
+    id 'org.openjfx.javafxplugin' version '0.0.14'
+    id 'org.beryx.jlink' version '2.26.0'
     id 'org.sonatype.gradle.plugins.scan' version '2.5.5'
     id 'org.graalvm.buildtools.native' version '0.9.19'
 }
 
-group 'io.github.kamilszewc'
+group 'com.computinglaboratory'
 version '1.16'
 
 graalvmNative {
