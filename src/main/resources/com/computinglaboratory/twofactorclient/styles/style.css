@@ -1,0 +1,15 @@
+@font-face {
+    src: url("fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+    src: url("fonts/Roboto-Bold.ttf");
+}
+
+@font-face {
+    src: url("fonts/Roboto-Medium.ttf");
+}
+
+.root {
+    -fx-font-family: 'Roboto Medium';
+}

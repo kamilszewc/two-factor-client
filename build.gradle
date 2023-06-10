@@ -36,8 +36,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'io.github.kamilszewc.twofactorclient'
-    mainClass = 'io.github.kamilszewc.twofactorclient.Application'
+    mainModule = 'com.computinglaboratory.twofactorclient'
+    mainClass = 'com.computinglaboratory.twofactorclient.Application'
 }
 
 javafx {
