@@ -8,9 +8,9 @@ Access to the application is protected by password.
 Installers can be found in the *Releases* section: [installers](https://github.com/kamilszewc/two-factor-client/releases)
 
 ## Screenshots
-![screenshot-main](https://github.com/kamilszewc/two-factor-client/raw/main/pictures/screenshot-main.png)
-![screenshot-scan](https://github.com/kamilszewc/two-factor-client/raw/main/pictures/screenshot-scan.png)
-![screenshot-config](https://github.com/kamilszewc/two-factor-client/raw/main/pictures/screenshot-config.png)
+<img src="https://github.com/kamilszewc/two-factor-client/raw/main/pictures/screenshot-main.png" width=50% height=50%>
+<img src="https://github.com/kamilszewc/two-factor-client/raw/main/pictures/screenshot-scan.png" width=50% height=50%>
+<img src="https://github.com/kamilszewc/two-factor-client/raw/main/pictures/screenshot-config.png" width=50% height=50%>
 
 ## Troubles
 The whole information about user entries is stored in *.two-factor-client* encrypted file. 
