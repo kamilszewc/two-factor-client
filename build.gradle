@@ -73,13 +73,13 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
 jlink {
-    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
+    imageZip = project.file("${buildDir}/distributions/two-factor-client-${javafx.platform.classifier}.zip")
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     launcher {
-        name = 'app'
+        name = 'two-factor-client'
         if (!Os.isFamily(Os.FAMILY_WINDOWS) && !Os.isFamily(Os.FAMILY_MAC)) {
             jvmArgs += [
-                    '--jdk.gtk.version=2'
+                    //'--jdk.gtk.version=2'
             ]
         }
     }
@@ -88,7 +88,7 @@ jlink {
         outputDir = "packages"
         skipInstaller = false
         installerName = "two-factor-client"
-        vendor = "Kamil Szewc"
+        vendor = "Kamil Szewc (Computing Laboratory)"
         if (Os.isFamily(Os.FAMILY_MAC)) {
             imageName = "Two Factor Client"
             installerType = 'pkg'
@@ -104,6 +104,7 @@ jlink {
             imageName = "two-factor-client"
             installerType = 'deb'
             icon = 'src/main/resources/logo.png'
+            resourceDir = file("packaging")
         }
     }
 }

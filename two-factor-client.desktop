@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Two Factor Client
+Comment=No comment
+Exec=/opt/two-factor-client/bin/two-factor-client
+Icon=/opt/two-factor-client/lib/two-factor-client.png
+Terminal=false
+Categories=Utility
