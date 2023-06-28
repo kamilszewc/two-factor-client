@@ -26,7 +26,7 @@ public class QrCodeScanner {
         }
     }
 
-    private BufferedImage takeScreenshot() throws AWTException, IOException {
+    private BufferedImage takeScreenshot() throws AWTException {
 
         Robot robot = new Robot();
         Rectangle rectangle = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());

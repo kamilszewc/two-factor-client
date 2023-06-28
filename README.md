@@ -10,6 +10,7 @@ Installers can be found in the *Releases* section: [installers](https://github.c
 ## Screenshots
 ![screenshot-main](https://github.com/kamilszewc/two-factor-client/raw/main/pictures/screenshot-main.png)
 ![screenshot-scan](https://github.com/kamilszewc/two-factor-client/raw/main/pictures/screenshot-scan.png)
+![screenshot-config](https://github.com/kamilszewc/two-factor-client/raw/main/pictures/screenshot-config.png)
 
 ## Troubles
 The whole information about user entries is stored in *.two-factor-client* encrypted file. 
