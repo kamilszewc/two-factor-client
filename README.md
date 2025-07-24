@@ -1,4 +1,5 @@
-# Two Factor Client (JavaFX-based)
+# Two Factor Client (JavaFX-based) INACTIVE
+**Development of this project has been stopped in 2023**
 
 ## Description
 It is very simple desktop JavaFX-based 2FA code generator tool with ability to make QR codes screenshots.
